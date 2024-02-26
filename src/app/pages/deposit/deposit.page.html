@@ -1,0 +1,66 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>deposit</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="container">
+    <app-header></app-header>
+
+    <h4><strong>DEPOSIT</strong></h4>
+    <div class="deposit"
+      style="padding: 20px ; margin: 20px; border: 2px solid #e9664a; border-radius: 10px; background-color: #fcf1e9;">
+      <ion-item class=" ion-activatable">
+        <ion-ripple-effect></ion-ripple-effect>
+
+        <ion-label style="font-weight: 500;" position="fixed" for="">Amount</ion-label>
+        <ion-input type="number" [(ngModel)]="amount" />
+      </ion-item>
+      <!-- <ion-item class=" ion-activatable">
+        <ion-ripple-effect></ion-ripple-effect>
+        <ion-label style="font-weight: 500;" position="fixed" for="">Receipt</ion-label>
+        <ion-input type="text" [(ngModel)]="customer" />
+      </ion-item> -->
+      <ion-item class=" ion-activatable">
+        <ion-ripple-effect></ion-ripple-effect>
+        <ion-label style="font-weight: 500;" position="fixed" for="">Agent</ion-label>
+        <ion-select class="always-flip" toggle-icon="caret-down-sharp" interface="popover" placeholder="Select Agent"
+          [(ngModel)]="agent">
+          <ion-select-option value="Andy">Andy</ion-select-option>
+          <ion-select-option value="Alex">Alex</ion-select-option>
+          <ion-select-option value="Chen">Chen</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <div class="btn" style="border-radius: 10px; padding-top: 10px; display: flex; justify-content: end;">
+        <ion-button size="" (click)="deposit()">SUBMIT</ion-button>
+      </div>
+    </div>
+
+    <div class=" deposit">
+      <h4><strong>History</strong></h4>
+      <div class="table" style="border: 2px solid #e9664a; border-radius: 10px;  font-weight: 600; margin: 20px;
+      padding: 5px; color: #000; background-color: #fcf1e9; min-height: 150px;">
+        <table style=" display: flex;width: 100%; flex-wrap: wrap; line-height: 1.5em;">
+          <tr>
+            <th>DATE</th>
+            <th>AMOUNT</th>
+            <th>STATUS</th>
+            <!-- <th>ACTION</th> -->
+          </tr>
+          <tr *ngFor="let deposit of depositHistory">
+            <td>{{deposit.date}}</td>
+            <td>{{deposit.amount}}</td>
+            <td>{{deposit.status}}</td>
+            <!-- <td>
+              <ion-button size="small" (click)="confirmDeposit()">Confirm</ion-button>
+            </td> -->
+          </tr>
+        </table>
+      </div>
+    </div>
+
+  </div>
+
+
+</ion-content>

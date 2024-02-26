@@ -1,0 +1,51 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>gift</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content [fullscreen]="true">
+  <div class="container">
+    <app-header></app-header>
+    <div class="wealth" style="padding: 20px;">
+      <h4><strong>SEND GIFT</strong></h4>
+      <form action="" class="form-register">
+        <div class="form-label">
+          <label for="user">Amount</label>
+          <label for="user">GOLD</label>
+          <label for="text">Username</label>
+        </div>
+        <div class="form-input">
+          <input type="text">
+          <input type="text">
+          <input type="text">
+          <button class="btn">SUBMIT</button>
+        </div>
+      </form>
+
+
+    </div>
+    <div class="withdraw">
+      <h4><strong>GIFT</strong></h4>
+      <div class="table" style="border: 2px solid #e9664a; border-radius: 10px;  font-weight: 600; margin: 20px;
+            padding: 5px; color: #000;    background-color: #fcf1e9;">
+        <table style=" display: flex;width: 100%; flex-wrap: wrap; line-height: 1.5em;">
+
+          <tr>
+            <th>DATE</th>
+            <th>AMOUNT</th>
+            <th>REICIPIENT</th>
+            <th>STATUS</th>
+          </tr>
+          <tr *ngFor="let gift of giftHistory">
+            <td>{{gift.date}}</td>
+            <td>{{gift.amount}}</td>
+            <td>{{gift.recipientUsername}}</td>
+            <td>{{gift.status}}</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+
+</ion-content>

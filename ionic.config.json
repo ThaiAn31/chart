@@ -1,0 +1,8 @@
+{
+  "name": "chingchong",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular",
+  "id": "bcdb749a"
+}

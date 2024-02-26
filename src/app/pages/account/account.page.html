@@ -1,0 +1,52 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Account</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content [fullscreen]="true">
+  <div class="container">
+    <app-header></app-header>
+    <div class="wealth" style="padding: 20px ;height: 60vh;">
+      <h4><strong>YOUR WEATH</strong></h4>
+      <!-- <div class="chart" style=" height: 100vh"> -->
+      <!-- <app-candle-chart></app-candle-chart> -->
+      <!-- <app-tv-chart></app-tv-chart> -->
+      <!-- <app-candlebar-chart></app-candlebar-chart> -->
+      <!-- </div> -->
+      <app-amchart></app-amchart>
+    </div>
+    <div class="buy-gold">
+      <h4><strong>BUY GOLD</strong></h4>
+
+      <div class="mess"
+        style="display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; align-items: center;">
+        <div class="circle">
+          0.1GM
+        </div>
+        <div class="circle">
+          1GM
+        </div>
+        <div class="circle">
+          2GM
+        </div>
+        <div class="circle">
+          5GM
+        </div>
+        <div class="circle">
+          10GM
+        </div>
+        <div class="circle">
+          500GM
+        </div>
+        <div class="circle">
+          100GM
+        </div>
+        <div class="circle">
+          1KG
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</ion-content>

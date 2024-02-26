@@ -1,0 +1,16 @@
+tr,
+th {
+    width: 100%;
+    display: flex;
+    border-bottom: 1px solid #e9664a;
+    flex-wrap: nowrap;
+    justify-content: space-around;
+    text-align: center;
+}
+
+td {
+    font-weight: 500;
+    width: 100%;
+    padding: 5px 10px;
+    text-align: center;
+}

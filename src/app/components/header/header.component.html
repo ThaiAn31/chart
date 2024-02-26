@@ -1,0 +1,26 @@
+<!-- header -->
+<div *ngIf="customer" class="header-container"
+  style="width: 100%; font-weight: 600; justify-content: center; text-transform: uppercase;">
+  <h4 style="padding: 20px 0; display: flex; justify-content: space-between; align-items: center;"><strong>WELCOME
+      {{customer.name}}
+    </strong>
+    <ion-button size="small" (click)="logout()">Log Out</ion-button>
+  </h4>
+  <div class="account-balance">
+    <h4><strong>ACCCOUNT BALANCE</strong></h4>
+
+    <div class="table" style="border: 2px solid #e9664a; border-radius: 10px;   margin: 20px;
+padding: 5px; color: #000;    background-color: #fcf1e9;">
+      <table style=" display: flex;width: 100%; flex-wrap: wrap; line-height: 1.5em;">
+        <tr>
+          <td>USDT</td>
+          <td>{{ usdtBalance }}</td>
+        </tr>
+        <tr>
+          <td>GOLD</td>
+          <td>{{ goldBalance }}</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,47 @@
+<ion-content>
+  <div style=" height: 100vh; display: flex; align-items: center;">
+
+    <div class="container">
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>Register</ion-card-title>
+          <ion-card-subtitle>Create your free account</ion-card-subtitle>
+        </ion-card-header>
+
+        <ion-card-content>
+          <form [formGroup]="registerForm" (ngSubmit)="register()">
+            <ion-item>
+              <ion-label position="floating">Name</ion-label>
+              <ion-input formControlName="name" type="text"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label position="floating">Phone</ion-label>
+              <ion-input formControlName="phone" type="number"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label position="floating">Email</ion-label>
+              <ion-input formControlName="email" type="email"></ion-input>
+            </ion-item>
+
+            <ion-item>
+              <ion-label position="floating">Password</ion-label>
+              <ion-input formControlName="password" type="password"></ion-input>
+            </ion-item>
+            <!-- <ion-item>
+              <ion-checkbox formControlName="is_agent">create agent account</ion-checkbox>
+              <span></span>
+            </ion-item> -->
+            <ion-button type="submit" style=" padding: 20px;border-radius: 10px; display: block;">Register</ion-button>
+          </form>
+          <div style="text-align: center; padding: 20px;">
+
+            <span>Have an account? </span>
+            <ion-router-link routerLink="/login" routerDirection="forward">Go to login</ion-router-link>
+          </div>
+        </ion-card-content>
+      </ion-card>
+
+    </div>
+  </div>
+
+</ion-content>

@@ -20,9 +20,10 @@ export class AmchartComponent implements OnInit {
   private API_KEY: string = 'e26ca12fcad2c55de5cd9620fb875261c509ead99ecfeb2cfd595f1340d39e48'
   chartData: any[] = [];
   chart: any;
-  series: any;
-  sbseries: any;
   dataSubscription: any;
+  firstDate: any = new Date();
+  lastDate :any;
+  value: number = 1200;
   constructor(private http: HttpClient, private cdr: ChangeDetectorRef) { }
 
   fetchOHLC(): void {
@@ -184,11 +185,9 @@ export class AmchartComponent implements OnInit {
       fillOpacity: 0.3
     });
 
-    let firstDate = new Date();
-    let lastDate;
-    let value = 1200;
 
-    let data = this.generateChartData(firstDate, value);
+
+    let data = this.generateChartData(this.firstDate, this.value);
     valueSeries.data.setAll(data);
     sbSeries.data.setAll(data);
     this.dataSubscription = interval(1000).subscribe(() => {
@@ -197,39 +196,39 @@ export class AmchartComponent implements OnInit {
         let previousDate = lastDataObject.Date;
         let previousValue = lastDataObject.Close;
 
-        value = am5.math.round(previousValue + (Math.random() < 0.5 ? 1 : -1) * Math.random() * 2, 2);
+        this.value = am5.math.round(previousValue + (Math.random() < 0.5 ? 1 : -1) * Math.random() * 2, 2);
 
         let high = lastDataObject.High;
         let low = lastDataObject.Low;
         let open = lastDataObject.Open;
 
         if (am5.time.checkChange(Date.now(), previousDate, "minute")) {
-          open = value;
-          high = value;
-          low = value;
+          open = this.value;
+          high = this.value;
+          low = this.value;
 
           let dObj1 = {
             Date: Date.now(),
-            Close: value,
-            Open: value,
-            Low: value,
-            High: value
+            Close: this.value,
+            Open: this.value,
+            Low: this.value,
+            High: this.value
           };
 
           valueSeries.data.push(dObj1);
           sbSeries.data.push(dObj1);
         } else {
-          if (value > high) {
-            high = value;
+          if (this.value > high) {
+            high = this.value;
           }
 
-          if (value < low) {
-            low = value;
+          if (this.value < low) {
+            low = this.value;
           }
 
           let dObj2 = {
             Date: Date.now(),
-            Close: value,
+            Close: this.value,
             Open: open,
             Low: low,
             High: high
@@ -239,11 +238,11 @@ export class AmchartComponent implements OnInit {
           sbSeries.data.setIndex(sbSeries.data.length - 1, dObj2);
         }
         if (currentLabel) {
-          currentValueDataItem.animate({ key: "value", to: value, duration: 500, easing: am5.ease.out(am5.ease.cubic) });
-          currentLabel.set("text", this.chart.getNumberFormatter().format(value));
+          currentValueDataItem.animate({ key: "value", to: this.value, duration: 500, easing: am5.ease.out(am5.ease.cubic) });
+          currentLabel.set("text", this.chart.getNumberFormatter().format(this.value));
           let bg = currentLabel.get("background");
           if (bg) {
-            if (value < open) {
+            if (this.value < open) {
               bg.set("fill", root.interfaceColors.get("negative"));
             }
             else {

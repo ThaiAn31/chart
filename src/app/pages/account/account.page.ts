@@ -4,7 +4,6 @@ import { AuthService } from 'src/app/services/auth.service';
 import { HeaderComponent } from '../../components/header/header.component';
 import { IonicModule } from '@ionic/angular';
 import { CandleChartComponent } from 'src/app/components/chart/chart.component';
-import { TvChartComponent } from 'src/app/components/tv-chart/tv-chart.component';
 import { CandlebarChartComponent } from 'src/app/components/candlebar-chart/candlebar-chart.component';
 import { AmchartComponent } from 'src/app/components/amchart/amchart.component';
 
@@ -13,7 +12,7 @@ import { AmchartComponent } from 'src/app/components/amchart/amchart.component';
   templateUrl: './account.page.html',
   styleUrls: ['./account.page.scss'],
   standalone: true,
-  imports: [IonicModule, HeaderComponent, CandleChartComponent, TvChartComponent, CandlebarChartComponent, AmchartComponent],
+  imports: [IonicModule, HeaderComponent, CandleChartComponent, CandlebarChartComponent, AmchartComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AccountPage implements OnInit {

@@ -1,7 +1,4 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-
-
-// amCharts imports
 import * as am5 from '@amcharts/amcharts5';
 import * as am5xy from '@amcharts/amcharts5/xy';
 import am5themes_Animated from '@amcharts/amcharts5/themes/Animated';
@@ -17,11 +14,12 @@ import { HttpClient } from '@angular/common/http';
 export class AmchartComponent implements OnInit {
   private BASE_URL: string = `https://min-api.cryptocompare.com/data`
   private API_KEY: string = 'e26ca12fcad2c55de5cd9620fb875261c509ead99ecfeb2cfd595f1340d39e48'
-  chartData: any[]
+  chartData: any[] = [];
   chart: any;
   series: any;
   sbseries: any;
   constructor(private http: HttpClient, private cdr: ChangeDetectorRef) { }
+
   fetchOHLC(): void {
     const url = `${this.BASE_URL}/histohlc?fsym=BTC&tsym=USD&limit=1000&api_key=${this.API_KEY}`
     this.http.get(url).subscribe({
@@ -32,9 +30,11 @@ export class AmchartComponent implements OnInit {
         console.log(err)
       }
     })
-
   }
+
   ngOnInit(): void {
+    this.chartData = this.generateInitialChartData(); // Initialize chartData here
+
     const root = am5.Root.new('chartdiv');
     const myTheme = am5.Theme.new(root);
     myTheme.rule('Grid', ['minor', 'scrollbar']).setAll({
@@ -44,7 +44,8 @@ export class AmchartComponent implements OnInit {
       am5themes_Animated.new(root),
       myTheme
     ]);
-    let data = this.generateChartData();
+
+    let data = this.chartData;
 
     let chart = root.container.children.push(
       am5xy.XYChart.new(root, {
@@ -78,7 +79,7 @@ export class AmchartComponent implements OnInit {
 
     let color = root.interfaceColors.get('background');
 
-    let series = chart.series.push(
+    this.series = chart.series.push( // Assign value to this.series
       am5xy.CandlestickSeries.new(root, {
         fill: color,
         calculateAggregates: true,
@@ -100,7 +101,7 @@ export class AmchartComponent implements OnInit {
       })
     );
 
-    series.columns.template.get('themeTags').push('pro');
+    this.series.columns.template.get('themeTags').push('pro');
 
     let cursor = chart.set(
       'cursor',
@@ -137,7 +138,7 @@ export class AmchartComponent implements OnInit {
       })
     );
 
-    let sbseries = scrollbar.chart.series.push(
+    this.sbseries = scrollbar.chart.series.push( // Assign value to this.sbseries
       am5xy.LineSeries.new(root, {
         xAxis: sbxAxis,
         yAxis: sbyAxis,
@@ -148,7 +149,7 @@ export class AmchartComponent implements OnInit {
 
     let legend = yAxis.axisHeader.children.push(am5.Legend.new(root, {}));
 
-    legend.data.push(series);
+    legend.data.push(this.series);
 
     legend.markers.template.setAll({
       width: 10
@@ -161,19 +162,24 @@ export class AmchartComponent implements OnInit {
       cornerRadiusBL: 0
     });
 
-    sbseries.data.setAll(data);
-    series.data.setAll(data);
+    this.series.data.setAll(data);
+    this.sbseries.data.setAll(data);
 
-    series.appear(1000);
+    this.series.appear(1000);
     chart.appear(1000, 100);
 
+    setInterval(() => {
+      this.addNewData();
+      console.log(this.chartData);
+    }, 5000);
   }
-  generateChartData() {
+
+  generateInitialChartData() {
     let chartData = [];
     let firstDate = new Date();
     firstDate.setDate(firstDate.getDate() - 1000);
     firstDate.setHours(0, 0, 0, 0);
-    let close = 1200;
+    let close = 12000;
     for (let i = 0; i < 1000; i++) {
       let newDate = new Date(firstDate);
       newDate.setDate(newDate.getDate() + i);
@@ -193,35 +199,38 @@ export class AmchartComponent implements OnInit {
     }
     console.log('chartData', chartData);
 
-    // setInterval(() => {
-    //   this.addNewData();
-    //   console.log(this.chartData);
-
-
-    // }, 5000);
     return chartData;
   }
 
   addNewData() {
     let lastDataPoint = this.chartData[this.chartData.length - 1];
     let newDate = new Date(lastDataPoint.date);
-    newDate.setMinutes(newDate.getMinutes() + 5);
+    newDate.setSeconds(newDate.getSeconds() + 5); // Tăng thời gian lên 5 giây
 
     let close = lastDataPoint.close + Math.round((Math.random() < 0.5 ? 1 : -1) * Math.random() * 10);
     let open = close + Math.round(Math.random() * 16 - 7);
     let low = Math.min(close, open) - Math.round(Math.random() * 5);
     let high = Math.max(close, open) + Math.round(Math.random() * 5);
 
-    this.chartData.push({
+    // Tạo một đối tượng mới cho dữ liệu nến mới
+    let newDataPoint = {
       date: newDate.getTime(),
       close: close,
       open: open,
       low: low,
       high: high
-    });
+    };
 
+    // Thêm dữ liệu mới vào cuối mảng chartData
+    this.chartData.push(newDataPoint);
+
+    // Cập nhật dữ liệu mới vào series và sbseries
     this.series.data.setAll(this.chartData);
     this.sbseries.data.setAll(this.chartData);
+
+    // Đảm bảo cập nhật UI
     this.cdr.detectChanges();
-  }
+}
+
+
 }

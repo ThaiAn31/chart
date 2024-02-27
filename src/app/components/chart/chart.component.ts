@@ -123,24 +123,24 @@ export class CandleChartComponent implements OnInit {
       const startTimestamp = newestDataTimestamp - (50 * 5 * 1000); // Mỗi nến cách nhau 5 giây
 
       // Cập nhật thời gian bắt đầu mới cho trục x
-      this.chartOptions.xaxis.min = startTimestamp;
-      const open = Math.random() * 1000 + 50000;
-      const high = open + Math.random() * 500;
-      const low = open - Math.random() * 500;
-      const close = Math.random() * 1000 + 50000;
-      this.dataChart.unshift([startTimestamp, open, high, low, close]);
+      // this.chartOptions.xaxis.min = startTimestamp;
+      // const open = Math.random() * 1000 + 50000;
+      // const high = open + Math.random() * 500;
+      // const low = open - Math.random() * 500;
+      // const close = Math.random() * 1000 + 50000;
+      // this.dataChart.unshift([startTimestamp, open, high, low, close]);
     }
     this.chartOptions.series = [{ name: "candle", data: this.dataChart }];
   }
   updateData() {
     this.delta = (Math.random() * 100 - 50).toFixed(2);
 
-    const timestamp = new Date().getTime();
-    const open = Math.random() * 1000 + 50000;
-    const high = open + Math.random() * 500;
-    const low = open - Math.random() * 500;
-    const close = Math.random() * 1000 + 50000;
-    this.dataChart.push([timestamp, open, high, low, close]);
+    // const timestamp = new Date().getTime();
+    // const open = Math.random() * 1000 + 50000;
+    // const high = open + Math.random() * 500;
+    // const low = open - Math.random() * 500;
+    // const close = Math.random() * 1000 + 50000;
+    // this.dataChart.push([timestamp, open, high, low, close]);
 
     this.chartOptions.series = [{ name: "candle", data: this.dataChart }];
 

@@ -332,7 +332,7 @@ export class AmchartComponent implements OnInit {
     let data = this.generateChartData(firstDate, value);
     valueSeries.data.setAll(data);
     sbSeries.data.setAll(data);
-
+//ádấđa
     this.dataSubscription = interval(1000).subscribe(() => {
       let lastDataObject = valueSeries.data.getIndex(valueSeries.data.length - 1);
       if (lastDataObject) {

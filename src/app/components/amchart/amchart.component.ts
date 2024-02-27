@@ -37,147 +37,6 @@ export class AmchartComponent implements OnInit {
     })
   }
 
-  // ngOnInit(): void {
-  //   this.chartData = this.generateInitialChartData(); // Initialize chartData here
-
-  //   const root = am5.Root.new('chartdiv');
-  //   const myTheme = am5.Theme.new(root);
-  //   myTheme.rule('Grid', ['minor', 'scrollbar']).setAll({
-  //     visible: false
-  //   });
-  //   root.setThemes([
-  //     am5themes_Animated.new(root),
-  //     myTheme
-  //   ]);
-
-  //   let data = this.chartData;
-
-  //   let chart = root.container.children.push(
-  //     am5xy.XYChart.new(root, {
-  //       focusable: true,
-  //       panX: true,
-  //       panY: true,
-  //       wheelX: 'panX',
-  //       wheelY: 'zoomX',
-  //       paddingLeft: 0
-  //     })
-  //   );
-
-  //   let xAxis = chart.xAxes.push(
-  //     am5xy.DateAxis.new(root, {
-  //       maxDeviation: 0.5,
-  //       groupData: true,
-  //       baseInterval: { timeUnit: 'day', count: 1 },
-  //       renderer: am5xy.AxisRendererX.new(root, {
-  //         pan: 'zoom',
-  //         minorGridEnabled: true
-  //       })
-  //     })
-  //   );
-
-  //   let yAxis = chart.yAxes.push(
-  //     am5xy.ValueAxis.new(root, {
-  //       maxDeviation: 1,
-  //       renderer: am5xy.AxisRendererY.new(root, { pan: 'zoom' })
-  //     })
-  //   );
-
-  //   let color = root.interfaceColors.get('background');
-
-  //   this.series = chart.series.push( // Assign value to this.series
-  //     am5xy.CandlestickSeries.new(root, {
-  //       fill: color,
-  //       calculateAggregates: true,
-  //       stroke: color,
-  //       name: 'MDXI',
-  //       xAxis: xAxis,
-  //       yAxis: yAxis,
-  //       valueYField: 'close',
-  //       openValueYField: 'open',
-  //       lowValueYField: 'low',
-  //       highValueYField: 'high',
-  //       valueXField: 'date',
-  //       lowValueYGrouped: 'low',
-  //       highValueYGrouped: 'high',
-  //       openValueYGrouped: 'open',
-  //       valueYGrouped: 'close',
-  //       legendValueText: 'open: {openValueY} low: {lowValueY} high: {highValueY} close: {valueY}',
-  //       legendRangeValueText: '{valueYClose}'
-  //     })
-  //   );
-
-  //   this.series.columns.template.get('themeTags').push('pro');
-
-  //   let cursor = chart.set(
-  //     'cursor',
-  //     am5xy.XYCursor.new(root, {
-  //       xAxis: xAxis
-  //     })
-  //   );
-  //   cursor.lineY.set('visible', false);
-
-  //   chart.leftAxesContainer.set('layout', root.verticalLayout);
-
-  //   let scrollbar = am5xy.XYChartScrollbar.new(root, {
-  //     orientation: 'horizontal',
-  //     height: 50
-  //   });
-  //   chart.set('scrollbarX', scrollbar);
-
-  //   let sbxAxis = scrollbar.chart.xAxes.push(
-  //     am5xy.DateAxis.new(root, {
-  //       groupData: true,
-  //       groupIntervals: [{ timeUnit: 'week', count: 1 }],
-  //       baseInterval: { timeUnit: 'day', count: 1 },
-  //       renderer: am5xy.AxisRendererX.new(root, {
-  //         opposite: false,
-  //         strokeOpacity: 0,
-  //         minorGridEnabled: true
-  //       })
-  //     })
-  //   );
-
-  //   let sbyAxis = scrollbar.chart.yAxes.push(
-  //     am5xy.ValueAxis.new(root, {
-  //       renderer: am5xy.AxisRendererY.new(root, {})
-  //     })
-  //   );
-
-  //   this.sbseries = scrollbar.chart.series.push( // Assign value to this.sbseries
-  //     am5xy.LineSeries.new(root, {
-  //       xAxis: sbxAxis,
-  //       yAxis: sbyAxis,
-  //       valueYField: 'close',
-  //       valueXField: 'date'
-  //     })
-  //   );
-
-  //   let legend = yAxis.axisHeader.children.push(am5.Legend.new(root, {}));
-
-  //   legend.data.push(this.series);
-
-  //   legend.markers.template.setAll({
-  //     width: 10
-  //   });
-
-  //   legend.markerRectangles.template.setAll({
-  //     cornerRadiusTR: 0,
-  //     cornerRadiusBR: 0,
-  //     cornerRadiusTL: 0,
-  //     cornerRadiusBL: 0
-  //   });
-
-  //   this.series.data.setAll(data);
-  //   this.sbseries.data.setAll(data);
-
-  //   this.series.appear(1000);
-  //   chart.appear(1000, 100);
-
-  //   setInterval(() => {
-  //     this.addNewData();
-  //     console.log(this.chartData);
-  //   }, 5000);
-  // }
   ngOnInit(): void {
     const root = am5.Root.new("chartdiv");
     const myTheme = am5.Theme.new(root);
@@ -286,6 +145,7 @@ export class AmchartComponent implements OnInit {
     let scrollbar = mainPanel.set(
       "scrollbarX",
       am5xy.XYChartScrollbar.new(root, {
+
         orientation: "horizontal",
         height: 50
       })
@@ -428,63 +288,63 @@ export class AmchartComponent implements OnInit {
     }
     return chartData;
   }
-//   generateInitialChartData() {
-//     let chartData = [];
-//     let firstDate = new Date();
-//     firstDate.setDate(firstDate.getDate() - 1000);
-//     firstDate.setHours(0, 0, 0, 0);
-//     let close = 12000;
-//     for (let i = 0; i < 1000; i++) {
-//       let newDate = new Date(firstDate);
-//       newDate.setDate(newDate.getDate() + i);
+  //   generateInitialChartData() {
+  //     let chartData = [];
+  //     let firstDate = new Date();
+  //     firstDate.setDate(firstDate.getDate() - 1000);
+  //     firstDate.setHours(0, 0, 0, 0);
+  //     let close = 12000;
+  //     for (let i = 0; i < 1000; i++) {
+  //       let newDate = new Date(firstDate);
+  //       newDate.setDate(newDate.getDate() + i);
 
-//       close += Math.round((Math.random() < 0.5 ? 1 : -1) * Math.random() * 10);
-//       let open = close + Math.round(Math.random() * 16 - 7);
-//       let low = Math.min(close, open) - Math.round(Math.random() * 5);
-//       let high = Math.max(close, open) + Math.round(Math.random() * 5);
+  //       close += Math.round((Math.random() < 0.5 ? 1 : -1) * Math.random() * 10);
+  //       let open = close + Math.round(Math.random() * 16 - 7);
+  //       let low = Math.min(close, open) - Math.round(Math.random() * 5);
+  //       let high = Math.max(close, open) + Math.round(Math.random() * 5);
 
-//       chartData.push({
-//         date: newDate.getTime(),
-//         close: close,
-//         open: open,
-//         low: low,
-//         high: high
-//       });
-//     }
-//     console.log('chartData', chartData);
+  //       chartData.push({
+  //         date: newDate.getTime(),
+  //         close: close,
+  //         open: open,
+  //         low: low,
+  //         high: high
+  //       });
+  //     }
+  //     console.log('chartData', chartData);
 
-//     return chartData;
-//   }
+  //     return chartData;
+  //   }
 
-//   addNewData() {
-//     let lastDataPoint = this.chartData[this.chartData.length - 1];
-//     let newDate = new Date(lastDataPoint.date);
-//     newDate.setSeconds(newDate.getSeconds() + 5); // Tăng thời gian lên 5 giây
+  //   addNewData() {
+  //     let lastDataPoint = this.chartData[this.chartData.length - 1];
+  //     let newDate = new Date(lastDataPoint.date);
+  //     newDate.setSeconds(newDate.getSeconds() + 5); // Tăng thời gian lên 5 giây
 
-//     let close = lastDataPoint.close + Math.round((Math.random() < 0.5 ? 1 : -1) * Math.random() * 10);
-//     let open = close + Math.round(Math.random() * 16 - 7);
-//     let low = Math.min(close, open) - Math.round(Math.random() * 5);
-//     let high = Math.max(close, open) + Math.round(Math.random() * 5);
+  //     let close = lastDataPoint.close + Math.round((Math.random() < 0.5 ? 1 : -1) * Math.random() * 10);
+  //     let open = close + Math.round(Math.random() * 16 - 7);
+  //     let low = Math.min(close, open) - Math.round(Math.random() * 5);
+  //     let high = Math.max(close, open) + Math.round(Math.random() * 5);
 
-//     // Tạo một đối tượng mới cho dữ liệu nến mới
-//     let newDataPoint = {
-//       date: newDate.getTime(),
-//       close: close,
-//       open: open,
-//       low: low,
-//       high: high
-//     };
+  //     // Tạo một đối tượng mới cho dữ liệu nến mới
+  //     let newDataPoint = {
+  //       date: newDate.getTime(),
+  //       close: close,
+  //       open: open,
+  //       low: low,
+  //       high: high
+  //     };
 
-//     // Thêm dữ liệu mới vào cuối mảng chartData
-//     this.chartData.push(newDataPoint);
+  //     // Thêm dữ liệu mới vào cuối mảng chartData
+  //     this.chartData.push(newDataPoint);
 
-//     // Cập nhật dữ liệu mới vào series và sbseries
-//     this.series.data.setAll(this.chartData);
-//     this.sbseries.data.setAll(this.chartData);
+  //     // Cập nhật dữ liệu mới vào series và sbseries
+  //     this.series.data.setAll(this.chartData);
+  //     this.sbseries.data.setAll(this.chartData);
 
-//     // Đảm bảo cập nhật UI
-//     this.cdr.detectChanges();
-// }
+  //     // Đảm bảo cập nhật UI
+  //     this.cdr.detectChanges();
+  // }
 
 
 }

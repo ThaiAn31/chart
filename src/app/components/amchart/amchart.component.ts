@@ -18,9 +18,8 @@ export class AmchartComponent implements OnInit {
   private API_KEY: string = 'e26ca12fcad2c55de5cd9620fb875261c509ead99ecfeb2cfd595f1340d39e48'
   dataSubscription: any;
   firstDate: any = new Date();
-  lastDate: any;
   value: number = 1200;
-  constructor(private http: HttpClient, private cdr: ChangeDetectorRef) { }
+  constructor(private http: HttpClient) { }
 
   fetchOHLC(): void {
     const url = `${this.BASE_URL}/histohlc?fsym=BTC&tsym=USD&limit=1000&api_key=${this.API_KEY}`
@@ -71,7 +70,7 @@ export class AmchartComponent implements OnInit {
       renderer: am5xy.AxisRendererY.new(root, {
         pan: "zoom"
       }),
-      extraMin: 0.1, // adds some space for for main series
+      extraMin: 0.5, // adds some space for for main series
       tooltip: am5.Tooltip.new(root, {}),
       numberFormat: "#,###.00",
       extraTooltipPrecision: 2
@@ -136,7 +135,7 @@ export class AmchartComponent implements OnInit {
     volumeAxisRenderer.grid.template.set("forceHidden", true);
 
     let volumeValueAxis = mainPanel.yAxes.push(am5xy.ValueAxis.new(root, {
-      numberFormat: "#.#a",
+      numberFormat: "#.##a",
       height: am5.percent(20),
       y: am5.percent(100),
       centerY: am5.percent(100),
@@ -151,7 +150,7 @@ export class AmchartComponent implements OnInit {
       valueYField: "Volume",
       xAxis: dateAxis,
       yAxis: volumeValueAxis,
-      legendValueText: "[bold]{valueY.formatNumber('#,###.0a')}[/]"
+      legendValueText: "[bold]{valueY.formatNumber('#,###.000a')}[/]"
     }));
 
     volumeSeries.columns.template.setAll({
@@ -325,22 +324,26 @@ export class AmchartComponent implements OnInit {
     volumeSeries.data.setAll(data);
     sbSeries.data.setAll(data);
     this.dataSubscription = interval(1000).subscribe(() => {
-      let lastDataObject = valueSeries.data.getIndex(valueSeries.data.length - 1);
+      let lastDataObject: any = valueSeries.data.getIndex(valueSeries.data.length - 1);
+
       if (lastDataObject) {
-        let previousDate = lastDataObject['Date'];
-        let previousValue = lastDataObject['Close'];
+        let previousDate = lastDataObject.Date;
+        let previousValue = lastDataObject.Close;
 
         this.value = am5.math.round(previousValue + (Math.random() < 0.5 ? 1 : -1) * Math.random() * 2, 2);
 
-        let high = lastDataObject['High'];
-        let low = lastDataObject['Low'];
-        let open = lastDataObject['Open'];
-        let volume = lastDataObject['Volume'];
+        let high = lastDataObject.High;
+        let low = lastDataObject.Low;
+        let open = lastDataObject.Open;
+        let volume = lastDataObject.Volume;
+        // console.log(volume);
+
         if (am5.time.checkChange(Date.now(), previousDate, "minute")) {
           open = this.value;
           high = this.value;
           low = this.value;
           volume = this.value;
+          // console.log('newdata', volume);
 
           let dObj1 = {
             Date: Date.now(),
@@ -363,7 +366,7 @@ export class AmchartComponent implements OnInit {
             low = this.value;
           }
 
-          let dObj2 = {
+          let dObj2: any = {
             Date: Date.now(),
             Close: this.value,
             Open: open,
@@ -371,12 +374,15 @@ export class AmchartComponent implements OnInit {
             High: high,
             Volume: volume
           };
+          // console.log('volume', dObj2.Volume);
+          
 
           valueSeries.data.setIndex(valueSeries.data.length - 1, dObj2);
           volumeSeries.data.setIndex(valueSeries.data.length - 1, dObj2);
           sbSeries.data.setIndex(sbSeries.data.length - 1, dObj2);
-          console.log('Volume Series:', volumeSeries.data.values[49]);
         }
+        // console.log('Volume Series:', this.dataSubscription.Volume);
+
         if (currentLabel) {
           currentValueDataItem.animate({ key: "value", to: this.value, duration: 500, easing: am5.ease.out(am5.ease.cubic) });
           currentLabel.set("text", stockChart.getNumberFormatter().format(this.value));
@@ -393,6 +399,8 @@ export class AmchartComponent implements OnInit {
       }
     });
 
+
+    
   }
   generateChartData(firstDate: Date, value: number) {
     let chartData = [];
